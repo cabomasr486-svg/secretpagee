@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>ليلي ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+overflow:hidden;
+}
+.card{
+background:rgba(0,0,0,0.4);
+padding:30px;
+border-radius:20px;
+text-align:center;
+width:340px;
+}
+button{
+margin-top:10px;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+background:#ff4b2b;
+color:white;
+font-size:16px;
+}
+</style>
+
+</head>
+<body>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mp3">
+</audio>
+
+<div class="card">
+
+<h1>ليلي ❤️</h1>
+
+<p id="message"></p>
+
+<button onclick="start()">افتح الرسالة</button>
+
+</div>
+
+<script>
+
+function start(){
+
+document.getElementById("music").play();
+
+document.getElementById("message").innerHTML =
+"بحبك يا ليلي ❤️";
+
+}
+
+</script>
+
+</body>
+</html>
