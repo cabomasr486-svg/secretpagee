@@ -2,86 +2,69 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>🩷</title>
+<title>ليلي 🩷</title>
 
 <style>
 body{
 margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#ff6eea,#764ba2,#ff6a00,#ff0080);
+font-family:sans-serif;
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-color:white;
+background:linear-gradient(45deg,#ff6ec4,#7873f5,#ff9671);
 overflow:hidden;
-flex-direction:column;
+color:white;
 }
 
+/* صندوق */
 .box{
 background:rgba(0,0,0,0.4);
-padding:30px;
-border-radius:20px;
-text-align:center;
-width:320px;
-z-index:10;
-}
-
-img{
-width:200px;
+padding:20px;
 border-radius:15px;
-margin-bottom:15px;
+text-align:center;
+backdrop-filter:blur(10px);
 }
 
+/* الصورة */
+img{
+width:120px;
+height:120px;
+border-radius:50%;
+margin-bottom:10px;
+}
+
+/* الأزرار */
 button{
-margin:5px;
-padding:10px 20px;
+background:#ff4d88;
 border:none;
+padding:10px 15px;
+margin:5px;
 border-radius:10px;
-background:#ff4b8b;
 color:white;
 font-size:16px;
 cursor:pointer;
-position:relative;
 }
 
 button:hover{
-background:#ff0055;
+background:#ff1a66;
 }
 
-#message{
-display:none;
-font-size:22px;
-margin-top:15px;
-color:#ffb6c1;
-}
-
-#loloText{
-display:none;
-margin-top:15px;
-font-size:20px;
-color:#ffb6c1;
-}
-
-#counter{
-margin-top:15px;
-font-size:18px;
-}
-
+/* القلوب */
 .heart{
 position:absolute;
-color:red;
+color:#ff99cc;
 font-size:20px;
 animation:float 5s linear infinite;
 }
 
 @keyframes float{
-0%{
-transform:translateY(0);
+from{
+transform:translateY(100vh);
 opacity:1;
 }
-100%{
-transform:translateY(-800px);
+to{
+transform:translateY(-10vh);
 opacity:0;
 }
 }
@@ -90,97 +73,115 @@ opacity:0;
 
 <body>
 
-<div class="box">
+<!-- باسورد -->
+<div class="box" id="login">
+<h2>ادخل الباسورد 🩷</h2>
+<input type="password" id="pass">
+<br><br>
+<button onclick="checkPass()">دخول</button>
+</div>
 
-<img src="rose.jpg">
+<!-- الصفحة -->
+<div class="box" id="main" style="display:none;">
 
-<h2>تتجوزيني؟ 🙈🩷</h2>
+<img src="photo.jpg">
+
+<h2>ليلي 🩷</h2>
+
+<p>تتجوزيني؟ 💍</p>
 
 <button onclick="yes()">نعم 🩷</button>
 
-<button id="noBtn" onmouseover="run()">لا 😂</button>
+<button id="no" onmouseover="run()">لا 😂</button>
 
 <br>
 
-<button onclick="showLolo()">لولو 🩷</button>
+<button onclick="lolo()">لولو 🩷</button>
 
-<p id="message">خلاص بقا بقيتي مراتي رسمي 😂🩷</p>
+<button onclick="surprise()">مفاجأة 🎁</button>
 
-<p id="loloText">بسلعب جلال الي يقولو لولو بس 😂🩷</p>
+<p id="message"></p>
 
-<div id="counter"></div>
+<p id="counter"></p>
 
 </div>
 
-<audio autoplay loop>
+<audio id="music" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
+/* الباسورد */
+function checkPass(){
+let p=document.getElementById("pass").value;
+if(p==="i love you"){
+document.getElementById("login").style.display="none";
+document.getElementById("main").style.display="block";
+document.getElementById("music").play();
+}
+else{
+alert("غلط 🙂");
+}
+}
+
+/* نعم */
 function yes(){
-document.getElementById("message").style.display="block";
+document.getElementById("message").innerHTML="بحبك يا ليلي 🩷";
 }
 
+/* لا يهرب */
 function run(){
-var btn=document.getElementById("noBtn");
+let btn=document.getElementById("no");
 btn.style.position="absolute";
-btn.style.top=Math.random()*80+"%";
 btn.style.left=Math.random()*80+"%";
+btn.style.top=Math.random()*80+"%";
 }
 
-function showLolo(){
-document.getElementById("loloText").style.display="block";
+/* لولو */
+function lolo(){
+document.getElementById("message").innerHTML="بسلعب جلال الي يقولو لولو بس 😂🩷";
 }
 
-// قلوب بتطير
-setInterval(function(){
+/* مفاجأة */
+function surprise(){
+document.getElementById("message").innerHTML="انتي اجمل حاجة حصلتلي 🩷";
+}
 
-var heart=document.createElement("div");
-
-heart.className="heart";
-
-heart.innerHTML="🩷";
-
-heart.style.left=Math.random()*100+"%";
-
-heart.style.top="100%";
-
-heart.style.fontSize=(Math.random()*20+20)+"px";
-
-document.body.appendChild(heart);
-
-setTimeout(function(){
-heart.remove();
-},5000);
-
-},300);
-
-// العداد
-var startDate=new Date("2024-01-01");
+/* العداد */
+let start=new Date("Aug 2, 2024 00:00:00").getTime();
 
 setInterval(function(){
 
-var now=new Date();
+let now=new Date().getTime();
 
-var diff=now-startDate;
+let diff=now-start;
 
-var days=Math.floor(diff/(1000*60*60*24));
-
-var hours=Math.floor(diff/(1000*60*60))%24;
-
-var minutes=Math.floor(diff/(1000*60))%60;
-
-var seconds=Math.floor(diff/1000)%60;
+let days=Math.floor(diff/(1000*60*60*24));
+let hours=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+let minutes=Math.floor((diff%(1000*60*60))/(1000*60));
+let seconds=Math.floor((diff%(1000*60))/1000);
 
 document.getElementById("counter").innerHTML=
-"بقالنا مع بعض ⏳<br>"+
-days+" يوم "+
+"بقالنا مع بعض 🩷<br>"+days+" يوم "+
 hours+" ساعة "+
 minutes+" دقيقة "+
-seconds+" ثانية 🩷";
+seconds+" ثانية";
 
 },1000);
+
+/* قلوب */
+setInterval(function(){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="🩷";
+heart.style.left=Math.random()*100+"%";
+heart.style.fontSize=(Math.random()*20+10)+"px";
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),5000);
+
+},300);
 
 </script>
 
