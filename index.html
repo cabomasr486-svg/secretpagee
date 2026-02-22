@@ -5,10 +5,11 @@
 <title>ليلي ❤️</title>
 
 <style>
+
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(135deg,#1a2a6c,#b21f1f,#fdbb2d);
+background:linear-gradient(135deg,#667eea,#764ba2,#ff6a00,#ff0080);
 height:100vh;
 display:flex;
 justify-content:center;
@@ -16,49 +17,212 @@ align-items:center;
 color:white;
 overflow:hidden;
 }
-.card{
+
+.box{
 background:rgba(0,0,0,0.4);
 padding:30px;
 border-radius:20px;
 text-align:center;
-width:340px;
+width:320px;
+z-index:10;
 }
+
+input{
+padding:10px;
+border:none;
+border-radius:10px;
+width:80%;
+}
+
 button{
 margin-top:10px;
-padding:12px 25px;
+padding:10px 20px;
 border:none;
 border-radius:10px;
 background:#ff4b2b;
 color:white;
 font-size:16px;
+cursor:pointer;
 }
-</style>
 
+button:hover{
+background:#ff0040;
+}
+
+#message{
+display:none;
+}
+
+#counter{
+margin-top:15px;
+font-size:18px;
+}
+
+/* القلب الكبير */
+.big-heart{
+font-size:60px;
+margin-top:10px;
+animation:beat 1s infinite;
+}
+
+@keyframes beat{
+0%{transform:scale(1);}
+50%{transform:scale(1.2);}
+100%{transform:scale(1);}
+}
+
+/* القلوب الطائرة */
+.heart{
+position:absolute;
+color:red;
+font-size:20px;
+animation:float 5s linear infinite;
+}
+
+@keyframes float{
+0%{
+transform:translateY(100vh);
+opacity:1;
+}
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+}
+
+</style>
 </head>
 <body>
+
+<div class="box" id="login">
+
+<h2>🔒 صفحة خاصة</h2>
+
+<input type="password" id="password" placeholder="الباسورد">
+
+<br>
+
+<button onclick="checkPassword()">دخول</button>
+
+</div>
+
+
+<div class="box" id="message">
+
+<div class="big-heart">💗 ليلي 💗</div>
+
+<p>
+انتي اجمل حاجة حصلت في حياتي  
+وكل يوم بحبك اكتر ❤️
+</p>
+
+<div id="counter"></div>
+
+<button onclick="love()">بحبك ❤️</button>
+
+<button onclick="surprise()">🎁 مفاجأة</button>
 
 <audio id="music" loop>
 <source src="music.mp3" type="audio/mp3">
 </audio>
 
-<div class="card">
-
-<h1>ليلي ❤️</h1>
-
-<p id="message"></p>
-
-<button onclick="start()">افتح الرسالة</button>
-
 </div>
+
 
 <script>
 
-function start(){
+// الباسورد
+let correctPassword = "i love you";
+
+function checkPassword(){
+
+let input = document.getElementById("password").value;
+
+if(input === correctPassword){
+
+document.getElementById("login").style.display="none";
+document.getElementById("message").style.display="block";
 
 document.getElementById("music").play();
 
-document.getElementById("message").innerHTML =
-"بحبك يا ليلي ❤️";
+startHearts();
+
+}
+else{
+
+alert("الباسورد غلط");
+
+}
+
+}
+
+
+// العداد
+let startDate = new Date("August 2, 2024 00:00:00");
+
+function updateCounter(){
+
+let now = new Date();
+
+let diff = now - startDate;
+
+let days = Math.floor(diff / (1000*60*60*24));
+let hours = Math.floor((diff / (1000*60*60)) % 24);
+let minutes = Math.floor((diff / (1000*60)) % 60);
+let seconds = Math.floor((diff / 1000) % 60);
+
+document.getElementById("counter").innerHTML =
+"بقالنا مع بعض ❤️<br>" +
+days+" يوم "+
+hours+" ساعة "+
+minutes+" دقيقة "+
+seconds+" ثانية";
+
+}
+
+setInterval(updateCounter,1000);
+
+
+// زر بحبك
+function love(){
+
+alert("بحبك يا ليلي ❤️");
+
+}
+
+
+// زر المفاجأة
+function surprise(){
+
+alert("انتي احلى حاجة في حياتي يا ليلي 💗");
+
+}
+
+
+// القلوب الطائرة
+function startHearts(){
+
+setInterval(()=>{
+
+let heart = document.createElement("div");
+
+heart.innerHTML="❤️";
+
+heart.className="heart";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=(Math.random()*20+10)+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+
+heart.remove();
+
+},5000);
+
+},300);
 
 }
 
