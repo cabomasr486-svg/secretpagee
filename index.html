@@ -10,105 +10,143 @@
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(135deg,#1a0033,#3d0066,#ff4da6);
+background:linear-gradient(180deg,#14052c,#1f0a3d,#2a0f4f);
 color:white;
-text-align:center;
 overflow-x:hidden;
+text-align:center;
 }
 
-/* شاشة التحميل */
-#loading{
+/* قلوب طايرة */
+.heart{
 position:fixed;
-width:100%;
-height:100%;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:10;
+color:red;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
 }
 
 /* شاشة الباسورد */
-#passwordBox{
-display:none;
+#passwordScreen{
 position:fixed;
 width:100%;
 height:100%;
-background:black;
+display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
-z-index:9;
+background:linear-gradient(180deg,#14052c,#1f0a3d,#2a0f4f);
+z-index:999;
 }
 
+.password-box{
+background:rgba(255,255,255,0.08);
+padding:40px;
+border-radius:20px;
+backdrop-filter:blur(20px);
+width:280px;
+}
+
+/* loader */
+.circle{
+width:90px;
+height:90px;
+border-radius:50%;
+background:conic-gradient(#ff4d8d,#7a5cff,#ff4d8d);
+display:flex;
+justify-content:center;
+align-items:center;
+margin:auto;
+animation:rotate 3s linear infinite;
+}
+
+.circle-inner{
+width:65px;
+height:65px;
+border-radius:50%;
+background:#1a0933;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:28px;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes rotate{
+100%{transform:rotate(360deg);}
+}
+
+@keyframes pulse{
+50%{transform:scale(1.2);}
+}
+
+.loader-text{
+margin-top:15px;
+}
+
+/* input */
 input{
-padding:15px;
-border-radius:10px;
+width:100%;
+padding:10px;
+margin-top:15px;
 border:none;
-margin:10px;
-font-size:18px;
-text-align:center;
+border-radius:10px;
 }
 
 button{
+margin-top:10px;
 padding:10px 20px;
 border:none;
 border-radius:10px;
-background:#ff4da6;
+background:#ff4d8d;
 color:white;
-font-size:18px;
 }
 
-/* الصفحة */
-#main{
+/* الموقع */
+#mainSite{
 display:none;
-padding:20px;
+padding-top:30px;
 }
 
-/* العداد */
+/* عداد */
 .counter{
 display:flex;
 justify-content:center;
-flex-wrap:wrap;
 gap:10px;
-margin:20px;
+flex-wrap:wrap;
 }
 
 .box{
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(10px);
-border-radius:15px;
+background:rgba(255,255,255,0.1);
 padding:15px;
-width:80px;
+border-radius:15px;
+width:70px;
 }
 
-.number{
-font-size:22px;
-font-weight:bold;
-}
-
-/* الكروت */
+/* كروت */
 .cards{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-margin-top:20px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+margin-top:30px;
 }
 
 .card{
+width:120px;
+height:120px;
 perspective:1000px;
 }
 
 .inner{
-position:relative;
 width:100%;
-height:80px;
+height:100%;
 transition:transform 0.6s;
 transform-style:preserve-3d;
 }
 
-.card.flip .inner{
+.card:hover .inner{
 transform:rotateY(180deg);
 }
 
@@ -116,180 +154,204 @@ transform:rotateY(180deg);
 position:absolute;
 width:100%;
 height:100%;
-backface-visibility:hidden;
-background:rgba(255,255,255,0.15);
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
 border-radius:15px;
 display:flex;
 justify-content:center;
 align-items:center;
+backface-visibility:hidden;
 }
 
 .back{
 transform:rotateY(180deg);
-background:#ff4da6;
 }
 
-/* القلوب */
-.heart{
-position:fixed;
-color:red;
-animation:float 5s linear infinite;
-}
-
-@keyframes float{
-from{transform:translateY(100vh);}
-to{transform:translateY(-10vh);}
+.secret{
+margin-top:30px;
+background:rgba(255,255,255,0.1);
+padding:15px;
+border-radius:15px;
+cursor:pointer;
 }
 
 </style>
-</head>
 
+</head>
 <body>
 
-<div id="loading">
-<h2>جاري التحميل...</h2>
+<!-- شاشة الباسورد -->
+<div id="passwordScreen">
+
+<div class="password-box">
+
+<div id="loader">
+
+<div class="circle">
+<div class="circle-inner">❤️</div>
 </div>
 
-<div id="passwordBox">
-<h2>اكتب الباسورد ❤️</h2>
+<div class="loader-text" id="typing"></div>
+
+</div>
+
+<div id="passwordContent" style="display:none;">
+
+<h3>اكتبي الباسورد يا ليلي ❤️</h3>
+
 <input type="password" id="pass">
+
 <button onclick="checkPass()">دخول</button>
+
 </div>
 
-<div id="main">
+</div>
+
+</div>
+
+<!-- الموقع -->
+<div id="mainSite">
 
 <h1>ليلي ❤️</h1>
 
-<img src="photo.jpg" width="250" style="border-radius:20px">
+<h3>اول مره اتقابلنا ❤️</h3>
+<p>2024-08-02</p>
 
 <h3>بداية عمري معاكي ❤️</h3>
 
 <div class="counter">
 
 <div class="box">
-<div class="number" id="years">0</div>
-<div>سنة</div>
+<div id="years">0</div>
+سنة
 </div>
 
 <div class="box">
-<div class="number" id="months">0</div>
-<div>شهر</div>
+<div id="months">0</div>
+شهر
 </div>
 
 <div class="box">
-<div class="number" id="days">0</div>
-<div>يوم</div>
+<div id="days">0</div>
+يوم
 </div>
 
 <div class="box">
-<div class="number" id="hours">0</div>
-<div>ساعة</div>
+<div id="hours">0</div>
+ساعة
 </div>
 
 <div class="box">
-<div class="number" id="minutes">0</div>
-<div>دقيقة</div>
+<div id="minutes">0</div>
+دقيقة
 </div>
 
 <div class="box">
-<div class="number" id="seconds">0</div>
-<div>ثانية</div>
+<div id="seconds">0</div>
+ثانية
 </div>
 
 </div>
 
 <div class="cards">
 
-<div class="card" onclick="flip(this)">
+<div class="card">
 <div class="inner">
-<div class="front">بحبك ❤️</div>
-<div class="back">انتي كل حياتي ❤️</div>
+<div class="front">❤️</div>
+<div class="back">بحبك</div>
 </div>
 </div>
 
-<div class="card" onclick="flip(this)">
+<div class="card">
 <div class="inner">
-<div class="front">بموت فيكي ❤️</div>
-<div class="back">مش قادر اعيش بدونك ❤️</div>
+<div class="front">✨</div>
+<div class="back">بموت فيكي</div>
 </div>
 </div>
 
-<div class="card" onclick="flip(this)">
+<div class="card">
 <div class="inner">
-<div class="front">بعشقك ❤️</div>
-<div class="back">انتي قلبي ❤️</div>
-</div>
-</div>
-
-<div class="card" onclick="flip(this)">
-<div class="inner">
-<div class="front">اضغطي هنا 🔒</div>
-<div class="back">مفاجأة قريب ❤️</div>
+<div class="front">🔒</div>
+<div class="back">بعشقك</div>
 </div>
 </div>
 
 </div>
 
+<div class="secret" onclick="showMessage()">
+اضغطي هنا ❤️
 </div>
 
-<audio id="music" src="music.mp3" loop></audio>
+</div>
 
 <script>
 
-/* تحميل */
+/* كتابة */
+let text="اقفي هنا شوية متجريش 😂";
+let i=0;
+
+function type(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,60);
+}
+}
+type();
+
+/* بعد 4 ثواني يظهر الباسورد */
 setTimeout(()=>{
-document.getElementById("loading").style.display="none";
-document.getElementById("passwordBox").style.display="flex";
-},2000);
+document.getElementById("loader").style.display="none";
+document.getElementById("passwordContent").style.display="block";
+},4000);
 
-/* الباسورد */
+/* تحقق */
 function checkPass(){
-if(document.getElementById("pass").value=="i love you"){
-document.getElementById("passwordBox").style.display="none";
-document.getElementById("main").style.display="block";
-document.getElementById("music").play();
+
+if(document.getElementById("pass").value==="i love you"){
+
+document.getElementById("passwordScreen").style.display="none";
+document.getElementById("mainSite").style.display="block";
+
 }
 }
 
-/* قلب الكارت */
-function flip(card){
-card.classList.toggle("flip");
-}
-
-/* العداد */
-var start=new Date("2024-08-02");
+/* عداد */
+let start=new Date("2024-08-02");
 
 setInterval(()=>{
-var now=new Date();
-var diff=now-start;
 
-var seconds=Math.floor(diff/1000)%60;
-var minutes=Math.floor(diff/1000/60)%60;
-var hours=Math.floor(diff/1000/60/60)%24;
-var days=Math.floor(diff/1000/60/60/24)%30;
-var months=Math.floor(diff/1000/60/60/24/30)%12;
-var years=Math.floor(diff/1000/60/60/24/365);
+let now=new Date();
+let diff=now-start;
 
-document.getElementById("years").innerHTML=years;
-document.getElementById("months").innerHTML=months;
-document.getElementById("days").innerHTML=days;
-document.getElementById("hours").innerHTML=hours;
-document.getElementById("minutes").innerHTML=minutes;
-document.getElementById("seconds").innerHTML=seconds;
+document.getElementById("years").innerHTML=Math.floor(diff/31536000000);
+document.getElementById("months").innerHTML=Math.floor(diff/2592000000);
+document.getElementById("days").innerHTML=Math.floor(diff/86400000);
+document.getElementById("hours").innerHTML=new Date(diff).getHours();
+document.getElementById("minutes").innerHTML=new Date(diff).getMinutes();
+document.getElementById("seconds").innerHTML=new Date(diff).getSeconds();
 
 },1000);
 
-/* القلوب */
+/* رسالة */
+function showMessage(){
+
+alert("بدايت حبي كانت علي التليجرام وحبيتك حب ملوش اول من اخر انتي حبي الوحيد والله واتمني تكوني جمبي علطول بحبك ولسه هحبك تاني وهفضل احبك يا اغلي حاجه ف الدنيا ❤️");
+
+}
+
+/* قلوب */
 setInterval(()=>{
-var heart=document.createElement("div");
+let heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="❤️";
 heart.style.left=Math.random()*100+"%";
-heart.style.fontSize="20px";
+heart.style.fontSize=(Math.random()*20+10)+"px";
 document.body.appendChild(heart);
 
-setTimeout(()=>heart.remove(),5000);
-},500);
+setTimeout(()=>heart.remove(),6000);
+
+},300);
 
 </script>
 
