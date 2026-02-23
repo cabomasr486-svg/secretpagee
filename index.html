@@ -6,7 +6,6 @@
 <title>ليلي ❤️</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Arial;
@@ -22,7 +21,6 @@ position:fixed;
 color:red;
 animation:float 6s linear infinite;
 }
-
 @keyframes float{
 0%{transform:translateY(100vh);}
 100%{transform:translateY(-10vh);}
@@ -76,13 +74,13 @@ animation:pulse 1.5s infinite;
 @keyframes rotate{
 100%{transform:rotate(360deg);}
 }
-
 @keyframes pulse{
 50%{transform:scale(1.2);}
 }
 
 .loader-text{
 margin-top:15px;
+font-size:18px;
 }
 
 /* input */
@@ -123,163 +121,46 @@ padding:15px;
 border-radius:15px;
 width:70px;
 }
-
-/* كروت */
-.cards{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-margin-top:30px;
-}
-
-.card{
-width:120px;
-height:120px;
-perspective:1000px;
-}
-
-.inner{
-width:100%;
-height:100%;
-transition:transform 0.6s;
-transform-style:preserve-3d;
-}
-
-.card:hover .inner{
-transform:rotateY(180deg);
-}
-
-.front,.back{
-position:absolute;
-width:100%;
-height:100%;
-background:rgba(255,255,255,0.1);
-backdrop-filter:blur(10px);
-border-radius:15px;
-display:flex;
-justify-content:center;
-align-items:center;
-backface-visibility:hidden;
-}
-
-.back{
-transform:rotateY(180deg);
-}
-
-.secret{
-margin-top:30px;
-background:rgba(255,255,255,0.1);
-padding:15px;
-border-radius:15px;
-cursor:pointer;
-}
-
 </style>
-
 </head>
+
 <body>
+
+<!-- الأغنية -->
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
 
 <!-- شاشة الباسورد -->
 <div id="passwordScreen">
-
 <div class="password-box">
 
 <div id="loader">
-
 <div class="circle">
 <div class="circle-inner">❤️</div>
 </div>
-
 <div class="loader-text" id="typing"></div>
-
 </div>
 
 <div id="passwordContent" style="display:none;">
-
 <h3>اكتبي الباسورد يا ليلي ❤️</h3>
-
 <input type="password" id="pass">
-
 <button onclick="checkPass()">دخول</button>
-
 </div>
 
 </div>
-
 </div>
 
 <!-- الموقع -->
 <div id="mainSite">
-
 <h1>ليلي ❤️</h1>
-
-<h3>اول مره اتقابلنا ❤️</h3>
-<p>2024-08-02</p>
-
 <h3>بداية عمري معاكي ❤️</h3>
 
 <div class="counter">
-
-<div class="box">
-<div id="years">0</div>
-سنة
-</div>
-
-<div class="box">
-<div id="months">0</div>
-شهر
-</div>
-
-<div class="box">
-<div id="days">0</div>
-يوم
-</div>
-
-<div class="box">
-<div id="hours">0</div>
-ساعة
-</div>
-
-<div class="box">
-<div id="minutes">0</div>
-دقيقة
-</div>
-
-<div class="box">
-<div id="seconds">0</div>
-ثانية
-</div>
-
-</div>
-
-<div class="cards">
-
-<div class="card">
-<div class="inner">
-<div class="front">❤️</div>
-<div class="back">بحبك</div>
-</div>
-</div>
-
-<div class="card">
-<div class="inner">
-<div class="front">✨</div>
-<div class="back">بموت فيكي</div>
-</div>
-</div>
-
-<div class="card">
-<div class="inner">
-<div class="front">🔒</div>
-<div class="back">بعشقك</div>
-</div>
-</div>
-
-</div>
-
-<div class="secret" onclick="showMessage()">
-اضغطي هنا ❤️
+<div class="box"><div id="days">0</div>يوم</div>
+<div class="box"><div id="hours">0</div>ساعة</div>
+<div class="box"><div id="minutes">0</div>دقيقة</div>
+<div class="box"><div id="seconds">0</div>ثانية</div>
 </div>
 
 </div>
@@ -289,7 +170,6 @@ cursor:pointer;
 /* كتابة */
 let text="اقفي هنا شوية متجريش 😂";
 let i=0;
-
 function type(){
 if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
@@ -307,38 +187,29 @@ document.getElementById("passwordContent").style.display="block";
 
 /* تحقق */
 function checkPass(){
-
 if(document.getElementById("pass").value==="i love you"){
-
 document.getElementById("passwordScreen").style.display="none";
 document.getElementById("mainSite").style.display="block";
 
+/* تشغيل الأغنية */
+let music=document.getElementById("music");
+music.play().catch(()=>{});
 }
 }
 
-/* عداد */
+/* عداد من 2 أغسطس 2024 */
 let start=new Date("2024-08-02");
 
 setInterval(()=>{
-
 let now=new Date();
 let diff=now-start;
 
-document.getElementById("years").innerHTML=Math.floor(diff/31536000000);
-document.getElementById("months").innerHTML=Math.floor(diff/2592000000);
 document.getElementById("days").innerHTML=Math.floor(diff/86400000);
 document.getElementById("hours").innerHTML=new Date(diff).getHours();
 document.getElementById("minutes").innerHTML=new Date(diff).getMinutes();
 document.getElementById("seconds").innerHTML=new Date(diff).getSeconds();
 
 },1000);
-
-/* رسالة */
-function showMessage(){
-
-alert("بدايت حبي كانت علي التليجرام وحبيتك حب ملوش اول من اخر انتي حبي الوحيد والله واتمني تكوني جمبي علطول بحبك ولسه هحبك تاني وهفضل احبك يا اغلي حاجه ف الدنيا ❤️");
-
-}
 
 /* قلوب */
 setInterval(()=>{
@@ -348,9 +219,7 @@ heart.innerHTML="❤️";
 heart.style.left=Math.random()*100+"%";
 heart.style.fontSize=(Math.random()*20+10)+"px";
 document.body.appendChild(heart);
-
 setTimeout(()=>heart.remove(),6000);
-
 },300);
 
 </script>
