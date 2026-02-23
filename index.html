@@ -6,7 +6,6 @@
 <title>ليلي ❤️</title>
 
 <style>
-
 body{
 margin:0;
 font-family:'Segoe UI',Tahoma;
@@ -17,7 +16,6 @@ overflow:hidden;
 }
 
 /* شاشة القفل */
-
 #lockScreen{
 position:fixed;
 width:100%;
@@ -46,10 +44,10 @@ background:#ff4f8b;
 color:white;
 font-size:18px;
 margin-top:10px;
+cursor:pointer;
 }
 
 /* المحتوى */
-
 #main{
 display:none;
 padding:15px;
@@ -62,7 +60,6 @@ to{opacity:1;}
 }
 
 /* الصورة */
-
 img{
 width:240px;
 border-radius:20px;
@@ -78,7 +75,6 @@ animation:pulse 2s infinite;
 }
 
 /* الكروت */
-
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -95,18 +91,17 @@ box-shadow:0 0 15px rgba(255,77,166,0.5);
 font-size:18px;
 }
 
-/* القفل */
-
+/* زر القفل */
 .lock{
 margin-top:15px;
 padding:15px;
 border-radius:20px;
 background:rgba(255,255,255,0.1);
 box-shadow:0 0 15px rgba(255,77,166,0.5);
+cursor:pointer;
 }
 
 /* popup */
-
 #popup{
 position:fixed;
 top:50%;
@@ -120,8 +115,7 @@ box-shadow:0 0 30px #ff4f8b;
 width:80%;
 }
 
-/* العداد */
-
+/* العدادات */
 .counter{
 display:flex;
 justify-content:center;
@@ -137,7 +131,6 @@ width:70px;
 }
 
 /* القلوب */
-
 .heart{
 position:fixed;
 bottom:-10px;
@@ -149,27 +142,17 @@ animation:float 6s linear infinite;
 0%{transform:translateY(0);}
 100%{transform:translateY(-110vh);}
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- شاشة القفل -->
-
 <div id="lockScreen">
-
 <h2>ادخلي الباسورد يا ليلي ❤️</h2>
-
 <input id="pass">
-
 <button onclick="unlock()">دخول</button>
-
 <p id="error"></p>
-
 </div>
-
-<!-- الصفحة -->
 
 <div id="main">
 
@@ -178,50 +161,29 @@ animation:float 6s linear infinite;
 <img src="photo.jpg">
 
 <div class="grid">
-
 <div class="card">❤️ بحبك</div>
-
 <div class="card">❤️ بموت فيكي</div>
-
 <div class="card">❤️ بعشقك</div>
-
 <div class="card">❤️ انتي حياتي</div>
-
 </div>
 
 <div class="lock" onclick="showPopup()">
 🔒 لسه مخلصتش دوسي هنا يا ليلي
 </div>
 
-<!-- popup -->
-
 <div id="popup">
-
 <h2>ليلي ❤️</h2>
-
 <p id="typing"></p>
-
 <button onclick="closePopup()">اغلاق</button>
-
 </div>
-
-<!-- العداد التنازلي -->
 
 <h3>⏳ باقي على 2 أغسطس:</h3>
-
 <div class="counter">
-
 <div class="box"><span id="days">0</span><br>يوم</div>
-
 <div class="box"><span id="hours">0</span><br>ساعة</div>
-
 <div class="box"><span id="minutes">0</span><br>دقيقة</div>
-
 <div class="box"><span id="seconds">0</span><br>ثانية</div>
-
 </div>
-
-<!-- العداد التصاعدي -->
 
 <h3 id="since"></h3>
 
@@ -233,135 +195,81 @@ animation:float 6s linear infinite;
 
 <script>
 
-/* فتح الشاشة */
-
+/* فتح الصفحة */
 function unlock(){
-
 if(document.getElementById("pass").value==="i love you"){
-
 document.getElementById("lockScreen").style.display="none";
-
 document.getElementById("main").style.display="block";
-
 document.getElementById("music").play();
-
+if(document.documentElement.requestFullscreen){
 document.documentElement.requestFullscreen();
-
+}
 }else{
-
 document.getElementById("error").innerHTML="غلط 💔";
-
+}
 }
 
-}
-
-/* popup */
-
+/* popup + كتابة حرف حرف */
 const text="بحبك يا ليلي ومش قادر اتخيل حياتي بدونك ❤️";
-
 let i=0;
 
 function showPopup(){
-
 document.getElementById("popup").style.display="block";
-
+document.getElementById("typing").innerHTML="";
 i=0;
-
 type();
-
 }
 
 function type(){
-
 if(i<text.length){
-
 document.getElementById("typing").innerHTML+=text.charAt(i);
-
 i++;
-
-setTimeout(type,50);
-
+setTimeout(type,40);
 }
-
 }
 
 function closePopup(){
-
 document.getElementById("popup").style.display="none";
-
-document.getElementById("typing").innerHTML="";
-
 }
 
-/* القلوب */
-
+/* قلوب */
 setInterval(()=>{
-
 let heart=document.createElement("div");
-
 heart.className="heart";
-
 heart.innerHTML="❤️";
-
 heart.style.left=Math.random()*100+"%";
-
 heart.style.fontSize=(Math.random()*20+15)+"px";
-
 document.body.appendChild(heart);
-
 setTimeout(()=>heart.remove(),6000);
-
 },400);
 
-/* العداد التنازلي */
-
+/* عداد تنازلي */
 function nextAugust(){
-
 let now=new Date();
-
 let target=new Date(now.getFullYear(),7,2);
-
 if(now>target){
-
 target=new Date(now.getFullYear()+1,7,2);
-
 }
-
 return target;
-
 }
 
 setInterval(()=>{
-
 let now=new Date();
-
 let diff=nextAugust()-now;
-
 document.getElementById("days").innerHTML=Math.floor(diff/(1000*60*60*24));
-
 document.getElementById("hours").innerHTML=Math.floor(diff%(1000*60*60*24)/(1000*60*60));
-
 document.getElementById("minutes").innerHTML=Math.floor(diff%(1000*60*60)/(1000*60));
-
 document.getElementById("seconds").innerHTML=Math.floor(diff%(1000*60)/1000);
-
 },1000);
 
-/* العداد التصاعدي */
-
+/* عداد تصاعدي */
 let start=new Date("Aug 2, 2024");
-
 setInterval(()=>{
-
 let now=new Date();
-
 let diff=now-start;
-
 let days=Math.floor(diff/(1000*60*60*24));
-
 document.getElementById("since").innerHTML=
 "📈 بقالنا "+days+" يوم مع بعض ❤️";
-
 },1000);
 
 </script>
