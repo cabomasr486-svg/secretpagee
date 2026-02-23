@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Laila🥺💘 </title>
+<title>ليلي ❤️</title>
 
 <style>
 
@@ -16,7 +16,7 @@ text-align:center;
 overflow-x:hidden;
 }
 
-/* شاشة الباسورد */
+/* شاشة الدخول */
 
 #loginPage{
 position:fixed;
@@ -34,6 +34,8 @@ background:rgba(255,255,255,0.1);
 padding:30px;
 border-radius:20px;
 backdrop-filter:blur(10px);
+width:85%;
+max-width:320px;
 }
 
 input{
@@ -42,11 +44,12 @@ border:none;
 border-radius:10px;
 font-size:18px;
 text-align:center;
+width:90%;
 }
 
 button{
-margin-top:10px;
-padding:10px 20px;
+margin-top:15px;
+padding:12px 25px;
 border:none;
 border-radius:10px;
 background:#ff4da6;
@@ -54,7 +57,7 @@ color:white;
 font-size:18px;
 }
 
-/* الصفحة */
+/* الصفحة الرئيسية */
 
 #mainPage{
 display:none;
@@ -78,6 +81,7 @@ box-shadow:0 0 25px rgba(255,0,150,0.7);
 
 .title{
 font-size:35px;
+margin-top:5px;
 }
 
 /* التاريخ */
@@ -124,6 +128,7 @@ height:120px;
 position:relative;
 transform-style:preserve-3d;
 transition:0.6s;
+cursor:pointer;
 }
 
 .card.flipped{
@@ -154,6 +159,7 @@ margin-top:30px;
 padding:15px;
 background:rgba(255,255,255,0.1);
 border-radius:15px;
+cursor:pointer;
 }
 
 .secret{
@@ -173,15 +179,16 @@ border-radius:15px;
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- شاشة الدخول -->
+<!-- شاشة الباسورد -->
 
 <div id="loginPage">
 
 <div class="login-box">
 
-<h2>اكتبي الباسورد ❤️</h2>
+<h2>جاهزة 🤔</h2>
+<p>كل الي هنا هيفضل بيني وبينك طول العمر ❤️</p>
 
-<input type="password" id="password">
+<input type="password" id="password" placeholder="اكتبي الباسورد">
 
 <br>
 
@@ -205,35 +212,12 @@ border-radius:15px;
 
 <div class="counter">
 
-<div class="time-box">
-<div id="years">0</div>
-سنة
-</div>
-
-<div class="time-box">
-<div id="months">0</div>
-شهر
-</div>
-
-<div class="time-box">
-<div id="days">0</div>
-يوم
-</div>
-
-<div class="time-box">
-<div id="hours">0</div>
-ساعة
-</div>
-
-<div class="time-box">
-<div id="minutes">0</div>
-دقيقة
-</div>
-
-<div class="time-box">
-<div id="seconds">0</div>
-ثانية
-</div>
+<div class="time-box"><div id="years">0</div>سنة</div>
+<div class="time-box"><div id="months">0</div>شهر</div>
+<div class="time-box"><div id="days">0</div>يوم</div>
+<div class="time-box"><div id="hours">0</div>ساعة</div>
+<div class="time-box"><div id="minutes">0</div>دقيقة</div>
+<div class="time-box"><div id="seconds">0</div>ثانية</div>
 
 </div>
 
@@ -276,17 +260,14 @@ border-radius:15px;
 
 <script>
 
-/* الباسورد */
-
 function checkPassword(){
 
-let pass=document.getElementById("password").value;
+var pass = document.getElementById("password").value;
 
-if(pass==="i love you"){
+if(pass === "i love you"){
 
-document.getElementById("loginPage").style.display="none";
-
-document.getElementById("mainPage").style.display="block";
+document.getElementById("loginPage").style.display = "none";
+document.getElementById("mainPage").style.display = "block";
 
 document.getElementById("music").play();
 
@@ -298,34 +279,23 @@ alert("الباسورد غلط ❤️");
 
 }
 
-/* الرسالة */
-
 function showSecret(){
-
 document.getElementById("secret").style.display="block";
-
 }
-
-/* العداد */
 
 let start=new Date("2024-08-02");
 
-setInterval(()=>{
+setInterval(function(){
 
 let now=new Date();
-
 let diff=now-start;
 
 let s=Math.floor(diff/1000);
-
 let m=Math.floor(s/60);
-
 let h=Math.floor(m/60);
-
 let d=Math.floor(h/24);
 
 let y=Math.floor(d/365);
-
 let mo=Math.floor((d%365)/30);
 
 document.getElementById("years").innerText=y;
