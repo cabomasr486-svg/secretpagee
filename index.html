@@ -6,155 +6,204 @@
 <title>ليلي ❤️</title>
 
 <style>
+
 body{
 margin:0;
 font-family:Arial;
-background:linear-gradient(180deg,#14052c,#1f0a3d,#2a0f4f);
+background:linear-gradient(180deg,#1a0033,#2d0055);
 color:white;
-overflow-x:hidden;
 text-align:center;
+overflow-x:hidden;
 }
 
-/* قلوب طايرة */
-.heart{
-position:fixed;
-color:red;
-animation:float 6s linear infinite;
-}
-@keyframes float{
-0%{transform:translateY(100vh);}
-100%{transform:translateY(-10vh);}
-}
+/* شاشة التحميل */
 
-/* شاشة الباسورد */
-#passwordScreen{
+#loadingScreen{
 position:fixed;
 width:100%;
 height:100%;
+background:linear-gradient(180deg,#1a0033,#2d0055);
 display:flex;
 justify-content:center;
 align-items:center;
-background:linear-gradient(180deg,#14052c,#1f0a3d,#2a0f4f);
+flex-direction:column;
 z-index:999;
 }
 
-.password-box{
-background:rgba(255,255,255,0.08);
-padding:40px;
-border-radius:20px;
-backdrop-filter:blur(20px);
-width:280px;
-}
-
-/* loader */
-.circle{
-width:90px;
-height:90px;
+.loader{
+width:120px;
+height:120px;
 border-radius:50%;
-background:conic-gradient(#ff4d8d,#7a5cff,#ff4d8d);
-display:flex;
-justify-content:center;
-align-items:center;
-margin:auto;
-animation:rotate 3s linear infinite;
+border:4px solid rgba(255,255,255,0.2);
+border-top:4px solid pink;
+animation:spin 1s linear infinite;
+margin-bottom:20px;
 }
 
-.circle-inner{
-width:65px;
-height:65px;
-border-radius:50%;
-background:#1a0933;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:28px;
-animation:pulse 1.5s infinite;
-}
-
-@keyframes rotate{
+@keyframes spin{
+0%{transform:rotate(0deg);}
 100%{transform:rotate(360deg);}
 }
-@keyframes pulse{
-50%{transform:scale(1.2);}
+
+#typing{
+font-size:24px;
+color:pink;
 }
 
-.loader-text{
-margin-top:15px;
-font-size:18px;
+/* شاشة الباسورد */
+
+#passwordScreen{
+display:none;
+margin-top:100px;
 }
 
-/* input */
 input{
-width:100%;
-padding:10px;
-margin-top:15px;
-border:none;
+padding:12px;
 border-radius:10px;
+border:none;
+font-size:18px;
+text-align:center;
 }
 
 button{
-margin-top:10px;
 padding:10px 20px;
 border:none;
 border-radius:10px;
-background:#ff4d8d;
-color:white;
+background:pink;
+color:black;
+font-size:18px;
+margin-top:10px;
 }
 
 /* الموقع */
+
 #mainSite{
 display:none;
-padding-top:30px;
 }
 
-/* عداد */
+.title{
+font-size:40px;
+margin-top:30px;
+}
+
+.subtitle{
+font-size:22px;
+color:pink;
+}
+
+/* العداد */
+
 .counter{
 display:flex;
 justify-content:center;
-gap:10px;
+gap:15px;
 flex-wrap:wrap;
+margin-top:20px;
 }
 
 .box{
 background:rgba(255,255,255,0.1);
-padding:15px;
+backdrop-filter:blur(10px);
+padding:20px;
 border-radius:15px;
-width:70px;
+width:90px;
 }
-</style>
-</head>
 
+/* الكروت */
+
+.cards{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
+.card{
+width:120px;
+height:120px;
+perspective:1000px;
+}
+
+.inner{
+width:100%;
+height:100%;
+transition:transform 0.6s;
+transform-style:preserve-3d;
+position:relative;
+}
+
+.card:hover .inner{
+transform:rotateY(180deg);
+}
+
+.front, .back{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:15px;
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.back{
+transform:rotateY(180deg);
+background:rgba(255,0,150,0.3);
+}
+
+/* القلوب */
+
+.heart{
+position:fixed;
+color:red;
+animation:fall 5s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+
+.secret{
+margin-top:40px;
+font-size:20px;
+color:pink;
+cursor:pointer;
+}
+
+</style>
+
+</head>
 <body>
 
-<!-- الأغنية -->
+<!-- الصوت -->
 <audio id="music" loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
+
+<!-- شاشة التحميل -->
+<div id="loadingScreen">
+<div class="loader"></div>
+<div id="typing"></div>
+</div>
 
 <!-- شاشة الباسورد -->
 <div id="passwordScreen">
-<div class="password-box">
-
-<div id="loader">
-<div class="circle">
-<div class="circle-inner">❤️</div>
-</div>
-<div class="loader-text" id="typing"></div>
-</div>
-
-<div id="passwordContent" style="display:none;">
-<h3>اكتبي الباسورد يا ليلي ❤️</h3>
-<input type="password" id="pass">
-<button onclick="checkPass()">دخول</button>
-</div>
-
-</div>
+<h2>اكتب الباسورد ❤️</h2>
+<input type="password" id="password">
+<br>
+<button onclick="checkPassword()">دخول</button>
 </div>
 
 <!-- الموقع -->
 <div id="mainSite">
-<h1>ليلي ❤️</h1>
-<h3>بداية عمري معاكي ❤️</h3>
+
+<div class="title">ليلي ❤️</div>
+<div class="subtitle">بداية عمري معاكي ❤️</div>
 
 <div class="counter">
 <div class="box"><div id="days">0</div>يوم</div>
@@ -163,64 +212,130 @@ width:70px;
 <div class="box"><div id="seconds">0</div>ثانية</div>
 </div>
 
+<div class="cards">
+
+<div class="card">
+<div class="inner">
+<div class="front">❤️</div>
+<div class="back">بحبك</div>
+</div>
+</div>
+
+<div class="card">
+<div class="inner">
+<div class="front">✨</div>
+<div class="back">بموت فيكي</div>
+</div>
+</div>
+
+<div class="card">
+<div class="inner">
+<div class="front">🔒</div>
+<div class="back">بعشقك</div>
+</div>
+</div>
+
+</div>
+
+<div class="secret" onclick="showSecret()">
+اضغطي هنا لرسالة سرية ❤️
+</div>
+
+<div id="secretText"></div>
+
 </div>
 
 <script>
 
-/* كتابة */
-let text="اقفي هنا شوية متجريش 😂";
+/* كتابة loading */
+
+let text="اقفي هنا شوية متجريش 😂❤️✨";
 let i=0;
+
 function type(){
 if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
 i++;
-setTimeout(type,60);
+setTimeout(type,50);
+}else{
+setTimeout(()=>{
+document.getElementById("loadingScreen").style.display="none";
+document.getElementById("passwordScreen").style.display="block";
+},1000);
 }
 }
+
 type();
 
-/* بعد 4 ثواني يظهر الباسورد */
-setTimeout(()=>{
-document.getElementById("loader").style.display="none";
-document.getElementById("passwordContent").style.display="block";
-},4000);
+/* الباسورد */
 
-/* تحقق */
-function checkPass(){
-if(document.getElementById("pass").value==="i love you"){
+function checkPassword(){
+
+let pass=document.getElementById("password").value;
+
+if(pass==="i love you"){
+
 document.getElementById("passwordScreen").style.display="none";
 document.getElementById("mainSite").style.display="block";
 
-/* تشغيل الأغنية */
-let music=document.getElementById("music");
-music.play().catch(()=>{});
-}
+document.getElementById("music").play();
+
 }
 
-/* عداد من 2 أغسطس 2024 */
-let start=new Date("2024-08-02");
+}
 
-setInterval(()=>{
+/* العداد */
+
+let start=new Date("Aug 2, 2024 00:00:00");
+
+function updateCounter(){
+
 let now=new Date();
+
 let diff=now-start;
 
-document.getElementById("days").innerHTML=Math.floor(diff/86400000);
-document.getElementById("hours").innerHTML=new Date(diff).getHours();
-document.getElementById("minutes").innerHTML=new Date(diff).getMinutes();
-document.getElementById("seconds").innerHTML=new Date(diff).getSeconds();
+let days=Math.floor(diff/(1000*60*60*24));
+let hours=Math.floor(diff/(1000*60*60))%24;
+let minutes=Math.floor(diff/(1000*60))%60;
+let seconds=Math.floor(diff/1000)%60;
 
-},1000);
+document.getElementById("days").innerText=days;
+document.getElementById("hours").innerText=hours;
+document.getElementById("minutes").innerText=minutes;
+document.getElementById("seconds").innerText=seconds;
 
-/* قلوب */
+}
+
+setInterval(updateCounter,1000);
+
+/* الرسالة السرية */
+
+function showSecret(){
+
+document.getElementById("secretText").innerHTML=
+"بدايت حبي كانت علي التليجرام وحبيتك حب ملوش اول من اخر انتي حبي الوحيد والله واتمني تكوني جمبي علطول بحبك ولسه هحبك تاني وهفضل احبك يا اغلي حاجه ف الدنيا 😭🥺❤️";
+
+}
+
+/* القلوب */
+
 setInterval(()=>{
+
 let heart=document.createElement("div");
+
 heart.className="heart";
+
 heart.innerHTML="❤️";
+
 heart.style.left=Math.random()*100+"%";
-heart.style.fontSize=(Math.random()*20+10)+"px";
+
+heart.style.fontSize=(Math.random()*20+20)+"px";
+
 document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),6000);
-},300);
+
+setTimeout(()=>heart.remove(),5000);
+
+},500);
 
 </script>
 
